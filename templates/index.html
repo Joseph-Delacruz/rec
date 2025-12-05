@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Equipo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+
+<body class="min-h-screen flex items-center justify-center relative">
+
+    <!-- Fondo grande -->
+    <div class="absolute inset-0">
+        <img src="{{ url_for('static', filename='image/image.png') }}"
+             class="w-full h-full object-cover opacity-40"
+             alt="Fondo">
+    </div>
+
+    <!-- Capa de oscurecimiento (opcional para mejor lectura) -->
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+    <!-- CARD PRINCIPAL -->
+    <div class="relative w-full max-w-3xl bg-gray-900 bg-opacity-80 p-10 rounded-2xl shadow-2xl backdrop-blur-lg fade-in">
+
+        <h1 class="text-center text-3xl font-bold mb-8 text-white">Registrar Equipo</h1>
+
+        <form action="/registrar" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-6 text-white">
+
+            <!-- Código -->
+            <div>
+                <label class="text-sm">Código</label>
+                <input name="codigo" class="w-full p-2 rounded bg-gray-800 border border-gray-700" required>
+            </div>
+
+            <!-- Tipo -->
+            <div>
+                <label class="text-sm">Tipo de equipo</label>
+                <select name="tipo_equipo" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+                    <option>PC</option>
+                    <option>Laptop</option>
+                    <option>Servidor</option>
+                </select>
+            </div>
+
+            <!-- Marca -->
+            <div>
+                <label class="text-sm">Marca</label>
+                <input name="marca" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+            </div>
+
+            <!-- Modelo -->
+            <div>
+                <label class="text-sm">Modelo</label>
+                <input name="modelo" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+            </div>
+
+            <!-- Sistema Operativo -->
+            <div>
+                <label class="text-sm">Sistema operativo</label>
+                <select name="sistema" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+                    <option>Windows</option>
+                    <option>Linux</option>
+                    <option>MacOS</option>
+                </select>
+            </div>
+
+            <!-- Almacenamiento -->
+            <div>
+                <label class="text-sm">Almacenamiento (GB)</label>
+                <input name="almacenamiento" type="number" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+            </div>
+
+            <!-- RAM -->
+            <div>
+                <label class="text-sm">RAM (GB)</label>
+                <input name="ram" type="number" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+            </div>
+
+            <!-- Estado -->
+            <div>
+                <label class="text-sm">Estado</label>
+                <select name="estado" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+                    <option>Operativo</option>
+                    <option>En mantenimiento</option>
+                    <option>Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Imagen -->
+            <div class="col-span-2">
+                <label class="text-sm">Imagen del equipo</label>
+                <input type="file" name="imagen" id="imagenInput"
+                       class="w-full p-2 rounded bg-gray-800 border border-gray-700" accept="image/*">
+
+                <img id="preview" class="mt-4 w-40 rounded hidden shadow-lg">
+            </div>
+
+            <!-- Botón -->
+            <div class="col-span-2 flex justify-center mt-4">
+                <button class="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition">
+                    Registrar
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+<script>
+    // Preview de imagen (DOM Animation)
+    const inputImg = document.getElementById("imagenInput");
+    const preview = document.getElementById("preview");
+
+    inputImg.addEventListener("change", () => {
+        const file = inputImg.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            preview.src = reader.result;
+            preview.classList.remove("hidden");
+            preview.classList.add("fade-in");
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+
+</body>
+</html>
